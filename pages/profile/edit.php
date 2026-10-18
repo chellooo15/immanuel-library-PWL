@@ -1,3 +1,13 @@
+<?php
+require_once __DIR__ . "/../../repositories/user-repository.php";
+
+$user = getUser();
+$profile = getProfile();
+
+$pageTitle = "Profil Saya";
+$pageSubtitle = "Kelola data akun dan profil Anda";
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,16 +17,11 @@
   <link rel="stylesheet" href="../../styles/profile/edit.css">
 </head>
 <body>
-  <?php
-  require '../../repositories/user-repository.php';
-  $user = getUser();
-  $profile = getProfile();
-  ?>
   <div class="app-shell">
-  <?php require '../../components/admin/sidebar.php'; ?>
+  <?php require_once __DIR__ . "/../../components/admin/sidebar.php" ?>
 
     <main class="app-main">
-    <?php $pageTitle = 'Profil Saya'; $pageSubtitle = 'Kelola data akun dan profil Anda'; require '../../components/admin/topbar.php'; ?>
+    <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="app-content">
         <form method="POST" action="../../actions/profile/update.php">
@@ -55,7 +60,7 @@
             </div>
             <div class="form-actions">
               <button type="button" class="btn btn-outline">Batal</button>
-              <button type="submit" name="ubah_profil" class="btn btn-primary">Simpan Perubahan</button>
+              <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
             </div>
           </div>
         </form>

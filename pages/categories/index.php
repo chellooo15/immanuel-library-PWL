@@ -1,3 +1,12 @@
+<?php
+require_once __DIR__ . "/../../repositories/category-repository.php";
+
+$categories = getCategories();
+
+$pageTitle = "Manajemen Kategori";
+$pageSubtitle = "Kelola kategori untuk mengelompokkan buku";
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,15 +16,11 @@
   <link rel="stylesheet" href="../../styles/categories/index.css">
 </head>
 <body>
-  <?php
-  require '../../repositories/category-repository.php';
-  $categories = getCategories();
-  ?>
   <div class="app-shell">
-  <?php require '../../components/admin/sidebar.php'; ?>
+  <?php require_once __DIR__ . "/../../components/admin/sidebar.php" ?>
 
     <main class="app-main">
-    <?php $pageTitle = 'Manajemen Kategori'; $pageSubtitle = 'Kelola kategori untuk mengelompokkan buku'; require '../../components/admin/topbar.php'; ?>
+    <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="app-content">
         <div class="toolbar">
@@ -41,23 +46,24 @@
             </thead>
             <tbody>
               <?php foreach ($categories as $category): ?>
-              <tr>
-                <td>
-                  <div class="cell-primary">
-                    <span class="cell-thumb"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></span>
-                    <?= $category['name'] ?>
-                  </div>
-                </td>
-                <td><?= $category['description'] ?></td>
-                <td><span class="badge badge-muted"><?= $category['total_books'] ?> buku</span></td>
-                <td>
-                  <div class="cell-actions">
-                    <a href="edit.php?id=<?= $category['id'] ?>" class="btn btn-outline btn-sm">Edit</a>
-                    <a href="../../actions/categories/destroy.php?id=<?= $category['id'] ?>" class="btn btn-danger btn-sm" onclick="return confirm('Hapus kategori ini?')">Hapus</a>
-                  </div>
-                </td>
-              </tr>
-              <?php endforeach; ?>
+                <tr>
+                  <td>
+                    <div class="cell-primary">
+                      <span class="cell-thumb"><svg class="icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 7a2 2 0 0 1 2-2h4l2 2h8a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2Z"/></svg></span>
+                      <?= $category['name'] ?>
+                    </div>
+                  </td>
+                  <td><?= $category['description'] ?></td>
+                  <td><span class="badge badge-muted"><?= $category['total_books'] ?> buku</span></td>
+                  <td>
+                    <div class="cell-actions">
+                      <a href="edit.php?id=<?= $category['id'] ?>" class="btn btn-outline btn-sm">Edit</a>
+                      <a href="../../actions/categories/destroy.php?id=<?= $category['id'] ?>" class="btn btn-danger btn-sm"
+                        onclick="return confirm('Yakin ingin menghapus kategori ini?')">Hapus</a>
+                    </div>
+                  </td>
+                </tr>
+              <?php endforeach ?>
             </tbody>
           </table>
         </div>

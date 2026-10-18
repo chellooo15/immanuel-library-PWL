@@ -1,15 +1,22 @@
 <?php
+require_once __DIR__ . "/../config/database.php";
 
-function getAuthors() {
-  return [
-    ["id" => 1, "name" => "Andrea Hirata", "bio" => "Penulis asal Belitung, dikenal lewat novel Laskar Pelangi.", "total_books" => 1],
-    ["id" => 2, "name" => "Tere Liye", "bio" => "Penulis produktif novel Indonesia.", "total_books" => 1],
-    ["id" => 3, "name" => "J.K. Rowling", "bio" => "Penulis seri Harry Potter.", "total_books" => 1],
-    ["id" => 4, "name" => "Pramoedya Ananta Toer", "bio" => "Sastrawan besar Indonesia.", "total_books" => 2],
-    ["id" => 5, "name" => "Sapardi Djoko Damono", "bio" => "Penyair Indonesia.", "total_books" => 1],
-  ];
+function getAuthors()
+{
+  global $pdo;
+  $query = "select a.id, a.name, count(ba.book_id) as total_books from authors a left join book_author ba on ba.author_id = a.id group by a.id order by a.id";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute();
+  return $stmt->fetchAll();
 }
 
-function getAuthor() {
-  return ["id" => 1, "name" => "Andrea Hirata", "bio" => "Penulis asal Belitung, dikenal lewat novel Laskar Pelangi.", "total_books" => 1];
+function getAuthor()
+{
+  $author = [
+    "id"   => 1,
+    "name" => "Andrea Hirata",
+    "bio"  => "Penulis asal Belitung, dikenal lewat novel Laskar Pelangi.",
+  ];
+
+  return $author;
 }

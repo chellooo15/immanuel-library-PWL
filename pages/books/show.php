@@ -1,3 +1,12 @@
+<?php
+require_once __DIR__ . "/../../repositories/book-repository.php";
+
+$book = getBook($_GET['id'] ?? null);
+
+$pageTitle = "Detail Buku";
+$pageSubtitle = "Informasi lengkap buku beserta kategori dan penulis";
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,15 +16,11 @@
   <link rel="stylesheet" href="../../styles/books/show.css">
 </head>
 <body>
-  <?php
-  require '../../repositories/book-repository.php';
-  $book = getBook();
-  ?>
   <div class="app-shell">
-  <?php require '../../components/admin/sidebar.php'; ?>
+  <?php require_once __DIR__ . "/../../components/admin/sidebar.php" ?>
 
     <main class="app-main">
-    <?php $pageTitle = 'Detail Buku'; $pageSubtitle = 'Informasi lengkap buku beserta kategori dan penulis'; require '../../components/admin/topbar.php'; ?>
+    <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="app-content">
         <div class="detail-grid">

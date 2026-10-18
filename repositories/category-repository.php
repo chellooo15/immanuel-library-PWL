@@ -1,14 +1,22 @@
 <?php
+require_once __DIR__ . "/../config/database.php";
 
-function getCategories() {
-  return [
-    ["id" => 1, "name" => "Fiksi", "description" => "Novel dan cerita rekaan", "total_books" => 3],
-    ["id" => 2, "name" => "Sains", "description" => "Buku ilmu pengetahuan alam", "total_books" => 0],
-    ["id" => 3, "name" => "Sejarah", "description" => "Buku sejarah dan biografi", "total_books" => 1],
-    ["id" => 4, "name" => "Teknologi", "description" => "Buku pemrograman dan teknologi", "total_books" => 0],
-  ];
+function getCategories()
+{
+  global $pdo;
+  $query = "select c.id, c.name, c.description, count(b.id) as total_books from categories c left join books b on b.category_id = c.id group by c.id order by c.id";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute();
+  return $stmt->fetchAll();
 }
 
-function getCategory() {
-  return ["id" => 1, "name" => "Fiksi", "description" => "Novel dan cerita rekaan", "total_books" => 3];
+function getCategory()
+{
+  $category = [
+    "id"          => 1,
+    "name"        => "Fiksi",
+    "description" => "Novel dan cerita rekaan",
+  ];
+
+  return $category;
 }

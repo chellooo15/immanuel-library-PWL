@@ -1,3 +1,12 @@
+<?php
+require_once __DIR__ . "/../../repositories/user-repository.php";
+
+$user = getUser();
+
+$pageTitle = "Edit Pengguna";
+$pageSubtitle = "Perbarui data dan role pengguna";
+?>
+
 <!DOCTYPE html>
 <html lang="id">
 <head>
@@ -7,15 +16,11 @@
   <link rel="stylesheet" href="../../styles/users/edit.css">
 </head>
 <body>
-  <?php
-  require '../../repositories/user-repository.php';
-  $user = getUser();
-  ?>
   <div class="app-shell">
-  <?php require '../../components/admin/sidebar.php'; ?>
+  <?php require_once __DIR__ . "/../../components/admin/sidebar.php" ?>
 
     <main class="app-main">
-    <?php $pageTitle = 'Edit Pengguna'; $pageSubtitle = 'Perbarui data dan role pengguna'; require '../../components/admin/topbar.php'; ?>
+    <?php require_once __DIR__ . "/../../components/admin/topbar.php" ?>
 
       <div class="app-content">
         <form method="POST" action="../../actions/users/update.php">
@@ -42,7 +47,7 @@
 
             <div class="form-actions">
               <a href="index.php" class="btn btn-outline">Batal</a>
-              <button type="submit" name="ubah_pengguna" class="btn btn-primary">Simpan Perubahan</button>
+              <button type="submit" name="update" class="btn btn-primary">Simpan Perubahan</button>
             </div>
           </div>
         </form>
