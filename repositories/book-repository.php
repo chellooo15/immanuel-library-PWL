@@ -50,3 +50,12 @@ function getBook($id)
   $book['authors'] = array_column($bookAuthors, 'name');
   return $book;
 }
+
+function isIsbnTaken($isbn, $ignoreBookId = 0)
+{
+  global $pdo;
+  $query = "select count(*) from books where isbn = :isbn and id != :id";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute(['isbn' => $isbn, 'id' => $ignoreBookId]);
+  return $stmt->fetchColumn() > 0;
+}

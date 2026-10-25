@@ -3,6 +3,12 @@ require_once __DIR__ . "/../../repositories/book-repository.php";
 require_once __DIR__ . "/../../repositories/category-repository.php";
 require_once __DIR__ . "/../../repositories/author-repository.php";
 
+session_start();
+
+$errors = $_SESSION['errors'] ?? [];
+$old = $_SESSION['old'] ?? [];
+unset($_SESSION['errors'], $_SESSION['old']);
+
 $book = getBook($_GET['id'] ?? null);
 $categories = getCategories();
 $authors = getAuthors();
@@ -33,35 +39,41 @@ $pageSubtitle = "Perbarui data buku, kategori, dan penulis";
             <div class="form-section-title">Data Buku</div>
             <div class="form-group">
               <label for="title">Judul Buku</label>
-              <input type="text" id="title" name="title" value="<?= $book['title'] ?>">
+              <input type="text" id="title" name="title" value="<?= $old['title'] ?? $book['title'] ?>">
+              <?= isset($errors['title']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['title'] . "</div>" : '' ?>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="isbn">ISBN</label>
-                <input type="text" id="isbn" name="isbn" value="<?= $book['isbn'] ?>">
+                <input type="text" id="isbn" name="isbn" value="<?= $old['isbn'] ?? $book['isbn'] ?>">
+                <?= isset($errors['isbn']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['isbn'] . "</div>" : '' ?>
               </div>
               <div class="form-group">
                 <label for="year">Tahun Terbit</label>
-                <input type="number" id="year" name="year" value="<?= $book['year'] ?>">
+                <input type="number" id="year" name="year" value="<?= $old['year'] ?? $book['year'] ?>">
+                <?= isset($errors['year']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['year'] . "</div>" : '' ?>
               </div>
             </div>
             <div class="form-row">
               <div class="form-group">
                 <label for="stock">Jumlah Stok</label>
-                <input type="number" id="stock" name="stock" value="<?= $book['stock'] ?>">
+                <input type="number" id="stock" name="stock" value="<?= $old['stock'] ?? $book['stock'] ?>">
+                <?= isset($errors['stock']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['stock'] . "</div>" : '' ?>
               </div>
               <div class="form-group">
                 <label for="category_id">Kategori</label>
                 <select id="category_id" name="category_id">
                   <?php foreach ($categories as $category): ?>
-                    <option value="<?= $category['id'] ?>" <?= $category['id'] === $book['category_id'] ? 'selected' : '' ?>><?= $category['name'] ?></option>
+                    <option value="<?= $category['id'] ?>" <?= ($old['category_id'] ?? $book['category_id']) == $category['id'] ? 'selected' : '' ?>><?= $category['name'] ?></option>
                   <?php endforeach; ?>
                 </select>
+                <?= isset($errors['category_id']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['category_id'] . "</div>" : '' ?>
               </div>
             </div>
             <div class="form-group">
               <label for="description">Deskripsi</label>
-              <textarea id="description" name="description" rows="3"><?= $book['description'] ?></textarea>
+              <textarea id="description" name="description" rows="3"><?= $old['description'] ?? $book['description'] ?></textarea>
+              <?= isset($errors['description']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['description'] . "</div>" : '' ?>
             </div>
           </div>
 
@@ -72,11 +84,12 @@ $pageSubtitle = "Perbarui data buku, kategori, dan penulis";
               <div class="checkbox-grid">
                 <?php foreach ($authors as $author): ?>
                   <label class="checkbox-item">
-                    <input type="checkbox" name="author_ids[]" value="<?= $author['id'] ?>" <?= in_array($author['id'], $book['author_ids']) ? 'checked' : '' ?>>
+                    <input type="checkbox" name="author_ids[]" value="<?= $author['id'] ?>" <?= in_array($author['id'], $old['author_ids'] ?? $book['author_ids']) ? 'checked' : '' ?>>
                     <?= $author['name'] ?>
                   </label>
                 <?php endforeach; ?>
               </div>
+              <?= isset($errors['author_ids']) ? "<div style='color:red;font-size:12px;margin-top:4px;'>" . $errors['author_ids'] . "</div>" : '' ?>
             </div>
 
             <div class="form-actions">
