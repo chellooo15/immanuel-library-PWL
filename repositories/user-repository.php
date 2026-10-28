@@ -2,14 +2,39 @@
 
 function getUsers()
 {
-  $users = [
-    ["id" => 1, "name" => "Admin Utama",    "email" => "admin@ski.sch.id",               "role" => "admin"],
-    ["id" => 2, "name" => "Budi Santoso",   "email" => "budi.santoso@siswa.ski.sch.id",  "role" => "member"],
-    ["id" => 3, "name" => "Siti Aminah",    "email" => "siti.aminah@siswa.ski.sch.id",   "role" => "member"],
-    ["id" => 4, "name" => "Richard Marcell","email" => "richard.m@ski.sch.id",           "role" => "admin"],
-  ];
+  global $pdo;
 
-  return $users;
+  $query = "SELECT * FROM users";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute();
+
+  return $stmt->fetchAll();
+}
+
+function getUserByEmail($email)
+{
+  global $pdo;
+
+  $query = "SELECT * FROM users WHERE email = :email";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute([
+    'email' => $email,
+  ]);
+
+  return $stmt->fetch();
+}
+
+function isEmailTaken($email)
+{
+  global $pdo;
+
+  $query = "SELECT COUNT(id) FROM users WHERE email = :email";
+  $stmt = $pdo->prepare($query);
+  $stmt->execute([
+    'email' => $email,
+  ]);
+
+  return $stmt->fetchColumn() > 0;
 }
 
 function getUser()
