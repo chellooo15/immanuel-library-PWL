@@ -35,5 +35,10 @@
         <path d="M19 19.5v-1a4.5 4.5 0 0 0-4.5-4.5h-5A4.5 4.5 0 0 0 5 18.5v1" />
         <circle cx="12" cy="7.5" r="4" />
       </svg> Profil Saya</a>
+    <a href="/../../actions/auth/logout.php"><svg class="icon" width="16" height="16" viewBox="0 0 24 24"
+        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M9 21l-9-9 9-9 9 9z" />
+        <path d="M22 12H10" />
+      </svg> Keluar</a>
   </nav>
 </aside>

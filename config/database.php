@@ -1,7 +1,7 @@
 <?php
-$host = "194.233.65.45";
-$dbname = "cpfpqh1642_immanuel_library";
-$username = "cpfpqh1642_immanuel_library";
+$host = "103.119.237.131";
+$dbname = "cpdicx55109_immanuel_library";
+$username = "cpdicx55109_immanuel_library";
 $password = "chello@1290";
 $dsn = "mysql:host=$host;dbname=$dbname;charset=utf8mb4";
 $options = [
