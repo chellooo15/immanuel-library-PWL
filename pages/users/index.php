@@ -1,5 +1,8 @@
 <?php
 require_once __DIR__ . "/../../repositories/user-repository.php";
+require_once __DIR__ . "/../../middleware/auth.php";
+
+requireRole(['admin']);
 
 $users = getUsers();
 
