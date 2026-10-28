@@ -1,6 +1,8 @@
 <?php
-session_start();
-$user = $_SESSION["user"];
+
+require_once __DIR__ . "/../../middleware/auth.php";
+
+$user = getAuthUser();
 ?>
 
 <header class="app-topbar">
@@ -12,7 +14,7 @@ $user = $_SESSION["user"];
     <span class="avatar"><?= substr($user['name'], 0, 2) ?></span>
     <div>
       <?= $user['name'] ?><br>
-      <span class="badge badge-member" style="margin-top:2px;"><?= ucfirst($user['role']) ?></span>
+      <span class="badge badge-<?= $user['role'] ?>" style="margin-top:2px;"><?= ucfirst($user['role']) ?></span>
     </div>
   </div>
 </header>
