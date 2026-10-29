@@ -17,6 +17,7 @@ if (!ctype_digit($categoryId)) {
 
 $categories = getCategories();
 $books = getBooks($search, $categoryId, $currentPage, $perPage);
+
 $totalBooks = getTotalBooks($search, $categoryId);
 $totalPages = ceil($totalBooks / $perPage);
 
